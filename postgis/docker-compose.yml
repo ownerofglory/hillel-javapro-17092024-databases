@@ -1,0 +1,22 @@
+# Use postgres/example user/password credentials
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgis/postgis
+    restart: always
+    shm_size: 128mb
+    volumes:
+      - db_gis_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: hillel
+      POSTGRES_PASSWORD: hillel
+      POSTGRES_DB: hillelgis
+    ports:
+      - "5432:5432"
+
+
+volumes:
+  db_gis_data:

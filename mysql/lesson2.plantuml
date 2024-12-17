@@ -1,0 +1,61 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class report_category {
+   total_amount: double
+   report_id: int
+   category_id: int
+   id: int
+}
+class t_category {
+   name: varchar(100)
+   user_id: int
+   id: int
+}
+class t_expense {
+   amount: double
+   description: varchar(200)
+   category_id: int
+   user_id: int
+   id: int
+}
+class t_profile {
+   avatarUrl: varchar(1024)
+   user_id: int
+   id: int
+}
+class t_report {
+   user_id: int
+   id: int
+}
+class t_tag {
+   name: varchar(20)
+   user_id: int
+   id: int
+}
+class t_tag_expense {
+   tag_id: int
+   expense_id: int
+}
+class t_user {
+   first_name: varchar(100)
+   last_name: varchar(100)
+   email: varchar(256)
+   birth_date: date
+   id: int
+}
+
+report_category  -[#595959,plain]-^  t_category      : "category_id:id"
+report_category  -[#595959,plain]-^  t_report        : "report_id:id"
+t_category       -[#595959,plain]-^  t_user          : "user_id:id"
+t_expense        -[#595959,plain]-^  t_category      : "category_id:id"
+t_expense        -[#595959,plain]-^  t_user          : "user_id:id"
+t_profile        -[#595959,plain]-^  t_user          : "user_id:id"
+t_report         -[#595959,plain]-^  t_user          : "user_id:id"
+t_tag            -[#595959,plain]-^  t_user          : "user_id:id"
+t_tag_expense    -[#595959,plain]-^  t_expense       : "expense_id:id"
+t_tag_expense    -[#595959,plain]-^  t_tag           : "tag_id:id"
+@enduml
